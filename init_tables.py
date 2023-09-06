@@ -84,6 +84,3 @@ def init_tables():
         if not check_if_table_exist(table_name):
             create_table(table_name)
             insert_data(table_name,csv_filename)
-
-if __name__ =="__main__":
-    init_tables()

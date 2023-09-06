@@ -1,4 +1,42 @@
-// Set dimensions and margins for the chart
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visualizing Bitcoin USD daily price</title>
+  <style>
+    rect {
+      pointer-events: all;
+      fill-opacity: 0;
+      stroke-opacity: 0;
+      z-index: 1;
+    }
+
+    .tooltip {
+    position: absolute;
+    padding: 15px;
+    background-color: steelblue;
+    color: white;
+    border: 1px solid white;
+    border-radius: 10px;
+    display: none;
+    opacity: .75;
+  }
+
+   
+  </style>
+</head>
+
+<body>
+  <div id="chart-container"></div>
+  <div id="tooltip"></div>
+
+  <!-- Include the D3.js library -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <!-- JS script code -->
+  <script>  
+	// Set dimensions and margins for the chart
 const margin = { top: 70, right: 30, bottom: 40, left: 80 };
 const width = 1200 - margin.left - margin.right;
 const height = 500 - margin.top - margin.bottom;
@@ -31,14 +69,14 @@ const tooltip = d3.select("body")
 
 
 
-// Load and process the data
-d3.csv("BTC-USD_upd.csv").then(data => {
-  // Parse the date and convert the population to a number
-  //const parseDate = d3.timeParse("%Y-%m-%d");
-  data.forEach(d => {
-    d.Date = new Date(d.Date);
-    d.Close = +d.Close;
-  });
+	// Load and process the data
+	var data = '{{ data|tojson|safe }}';
+	console.log(data);
+	data = JSON.parse(data);
+	// Parse the Date and convert the Close to a number
+	data.forEach(d => {
+		d.Date = new Date(d.Date);
+		d.Close = +d.Close;});
 
   data.sort((a, b) => a.Date - b.Date);
 
@@ -198,6 +236,9 @@ d3.csv("BTC-USD_upd.csv").then(data => {
     .attr("y", height + margin.bottom - 3)
     .style("font-size", "9px")
     .style("font-family", "sans-serif")
-    .text("Source: https://finance.yahoo.com/");
+    .html("<a href='https://finance.yahoo.com/'>Source: Yahoo - Finance</a>");
 
-});
+</script>
+</body>
+
+</html>
