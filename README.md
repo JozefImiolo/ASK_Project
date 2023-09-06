@@ -2,7 +2,7 @@
 ASK subject - study course. Topic of project: Time-series database QuestDB for storing stock market data: examples, visualization using D3.js
 
 
-##How to run
+## How to run
 
 ### Python
 pip install -r requirements.txt
