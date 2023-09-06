@@ -16,7 +16,7 @@
     .tooltip {
     position: absolute;
     padding: 15px;
-    background-color: steelblue;
+    background-color: orange;
     color: white;
     border: 1px solid white;
     border-radius: 10px;
@@ -158,7 +158,7 @@ const tooltip = d3.select("body")
   const path = svg.append("path")
     .datum(data)
     .attr("fill", "none")
-    .attr("stroke", "steelblue")
+    .attr("stroke", "orange")
     .attr("stroke-width", 1)
     .attr("d", line);
 
@@ -166,7 +166,7 @@ const tooltip = d3.select("body")
 
   const circle = svg.append("circle")
     .attr("r", 0)
-    .attr("fill", "steelblue")
+    .attr("fill", "orange")
     .style("stroke", "white")
     .attr("opacity", .70)
     .style("pointer-events", "none");
