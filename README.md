@@ -14,3 +14,6 @@ ASK subject - study course. Topic of project: Time-series database QuestDB for s
 
 ### FLask app - launch app
     python -m flask run
+
+### App website - visit website
+    http://127.0.0.1:5000
