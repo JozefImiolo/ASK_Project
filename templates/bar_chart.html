@@ -1,3 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bitcoin year average price in USD</title>
+
+</head>
+
+<body>
+
+  <div id="price-avg-chart"></div>
+
+  <!-- Include the D3.js library -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <!-- JS script code -->
+  <script>  
 // Set up the dimensions of the chart
 const margin = { top: 70, right: 40, bottom: 60, left: 175 }
 const width = 660 - margin.left - margin.right
@@ -10,12 +28,13 @@ const svg = d3.select("#price-avg-chart").append("svg")
   .append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-// Load and process the data
-d3.csv("BTC_avg_price_year.csv").then(data => {
-  data.forEach(d => {
-    d.avg = +d.avg;
-  });
-
+	// Load and process the data
+	var data = '{{ data|tojson|safe }}';
+	console.log(data);
+	data = JSON.parse(data);
+	// Parse the Date and convert the Close to a number
+	data.forEach(d => {
+		d.avg = +d.avg;});
   // // Sort the data by avg
   // data.sort(function (a, b) {
   //   return d3.ascending(a.avg, b.avg);
@@ -87,7 +106,7 @@ d3.csv("BTC_avg_price_year.csv").then(data => {
 
   svg.selectAll(".y.axis .tick text")
     .text(function (d) {
-      return d.toUpperCase();
+      return d.toString().toUpperCase();
     });
 
 
@@ -133,5 +152,9 @@ d3.csv("BTC_avg_price_year.csv").then(data => {
     .style("fill", "lightgray")
     .style("font-family", "sans-serif")
     .html("<a href='https://finance.yahoo.com/'>Source: Yahoo - Finance</a>");
+</script>
 
-});
+
+</body>
+
+</html>

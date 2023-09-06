@@ -1,5 +1,11 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bitcoin 2023 prices in USD - CandleStick chart</title>
+</head>
 <style>
 
     body {
@@ -67,20 +73,21 @@
             .attr("height", height + margin.top + margin.bottom)
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+	// Load and process the data
+	var data = '{{ data|tojson|safe }}';
+	console.log(data);
+	data = JSON.parse(data);
+	// Parse the Date and convert to a number
+	data.forEach(d => {
+		d.date = new Date(d.Date);
+		d.close = +d.Close;
+		d.open = +d.Open;
+		d.high = +d.High;
+		d.low = +d.Low;
+		d.volume = +d.Volume});
 
-    d3.csv("BTC-USD_2023.csv", function(error, data) {
         var accessor = candlestick.accessor();
 
-        data = data.map(function(d) {
-            return {
-                date: new Date(d.Date),
-                open: +d.Open,
-                high: +d.High,
-                low: +d.Low,
-                close: +d.Close,
-                volume: +d.Volume
-            };
-        });
 
         svg.append("g")
                 .attr("class", "candlestick");
@@ -120,11 +127,10 @@
     .attr("y", height + margin.bottom - 3)
     .style("font-size", "9px")
     .style("font-family", "sans-serif")
-    .text("Source: https://finance.yahoo.com/");
+    .html("<a href='https://finance.yahoo.com/'>Source: Yahoo - Finance</a>");
     
     draw(data);
 
-    });
 
     function draw(data) {
         x.domain(data.map(candlestick.accessor().d));
@@ -136,3 +142,7 @@
     }
 
 </script>
+
+</body>
+
+</html>
