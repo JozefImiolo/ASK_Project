@@ -5,7 +5,9 @@ ASK subject - study course. Topic of project: Time-series database QuestDB for s
 ## How to run
 
 ### Python
-pip install -r requirements.txt
+    python -m venv myenv
+    .\myenv\Scripts\activate.bat
+    pip install -r requirements.txt
 
 ### Docker 
     docker run  -p 9000:9000 -p 9009:9009 -p 8812:8812 -p 9003:9003 questdb/questdb:7.3.1
@@ -23,6 +25,4 @@ pip install -r requirements.txt
     -- To run the instance as a windows service (preferably as a privileged account):
     questdb.exe install
     questdb.exe start
-
-    ______________________________________________________
 
