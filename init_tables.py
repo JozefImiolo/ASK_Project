@@ -31,14 +31,14 @@ def create_table(table_name):
 
     create_table_query = f'''
      CREATE TABLE {table_name}(
-      t_stamp timestamp,
+      Date timestamp,
       Open DOUBLE,
       High DOUBLE,
       Low DOUBLE,
       Close DOUBLE,
       AdjClose DOUBLE,
       Volume LONG
-    ) timestamp (t_stamp) PARTITION BY DAY WAL;
+    ) timestamp (Date) PARTITION BY DAY WAL;
     '''
 
     payload = {
@@ -66,7 +66,7 @@ def insert_data(table_name, csv_filename):
                 sender.row(
                     table_name,
                     columns={
-                        't_stamp': tstamp,
+                        'Date': tstamp,
                         'Open': float(row['Open']),
                         'High': float(row['High']),
                         'Low': float(row['Low']),
