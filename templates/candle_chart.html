@@ -2,9 +2,9 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bitcoin 2023 prices in USD - CandleStick chart</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitcoin 2023 prices in USD - CandleStick chart</title>
 </head>
 <style>
 
@@ -48,87 +48,88 @@
 <script>
 
     var margin = {top: 70, right: 30, bottom: 40, left: 80},
-            width = 960 - margin.left - margin.right,
-            height = 500 - margin.top - margin.bottom;
+        width = 960 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
 
 
     var x = techan.scale.financetime()
-            .range([0, width]);
+        .range([0, width]);
 
     var y = d3.scaleLinear()
-            .range([height, 0]);
+        .range([height, 0]);
 
     var candlestick = techan.plot.candlestick()
-            .xScale(x)
-            .yScale(y);
+        .xScale(x)
+        .yScale(y);
 
     var xAxis = d3.axisBottom()
-            .scale(x);
+        .scale(x);
 
     var yAxis = d3.axisLeft()
-            .scale(y);
+        .scale(y);
 
     var svg = d3.select("body").append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-	// Load and process the data
-	var data = '{{ data|tojson|safe }}';
-	console.log(data);
-	data = JSON.parse(data);
-	// Parse the Date and convert to a number
-	data.forEach(d => {
-		d.date = new Date(d.Date);
-		d.close = +d.Close;
-		d.open = +d.Open;
-		d.high = +d.High;
-		d.low = +d.Low;
-		d.volume = +d.Volume});
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    // Load and process the data
+    var data = '{{ data|tojson|safe }}';
+    console.log(data);
+    data = JSON.parse(data);
+    // Parse the Date and convert to a number
+    data.forEach(d => {
+        d.date = new Date(d.Date);
+        d.close = +d.Close;
+        d.open = +d.Open;
+        d.high = +d.High;
+        d.low = +d.Low;
+        d.volume = +d.Volume
+    });
 
-        var accessor = candlestick.accessor();
+    var accessor = candlestick.accessor();
 
 
-        svg.append("g")
-                .attr("class", "candlestick");
+    svg.append("g")
+        .attr("class", "candlestick");
 
-        svg.append("g")
-                .attr("class", "x axis")
-                .attr("transform", "translate(0," + height + ")");
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")");
 
-        svg.append("g")
-                .attr("class", "y axis")
-                svg.append("text")
-                .attr("transform", "rotate(-90)")
-                .attr("y", 0 - margin.left)
-                .attr("x", 0 - (height / 2))
-                .attr("dy", "1em")
-                .style("text-anchor", "middle")
-                .style("font-size", "14px")
-                .style("fill", "#777")
-                .style("font-family", "sans-serif")
-                .text("Price [USD]");
+    svg.append("g")
+        .attr("class", "y axis")
+    svg.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - margin.left)
+        .attr("x", 0 - (height / 2))
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .style("font-size", "14px")
+        .style("fill", "#777")
+        .style("font-family", "sans-serif")
+        .text("Price [USD]");
 
 
     // Add the chart title
-  svg.append("text")
-    .attr("class", "chart-title")
-    .attr("x", margin.left - 115)
-    .attr("y", margin.top - 100)
-    .style("font-size", "24px")
-    //.style("font-weight", "bold")
-    .style("font-family", "sans-serif")
-    .text("Bitcoin Price in USD since  2023 - Candlestick Chart");
+    svg.append("text")
+        .attr("class", "chart-title")
+        .attr("x", margin.left - 115)
+        .attr("y", margin.top - 100)
+        .style("font-size", "24px")
+        //.style("font-weight", "bold")
+        .style("font-family", "sans-serif")
+        .text("Bitcoin Price in USD since  2023 - Candlestick Chart");
 
-  // Add the source credit
-  svg.append("text")
-    .attr("class", "source-credit")
-    .attr("x", width - 925)
-    .attr("y", height + margin.bottom - 3)
-    .style("font-size", "9px")
-    .style("font-family", "sans-serif")
-    .html("<a href='https://finance.yahoo.com/'>Source: Yahoo - Finance</a>");
-    
+    // Add the source credit
+    svg.append("text")
+        .attr("class", "source-credit")
+        .attr("x", width - 925)
+        .attr("y", height + margin.bottom - 3)
+        .style("font-size", "9px")
+        .style("font-family", "sans-serif")
+        .html("<a href='https://finance.yahoo.com/'>Source: Yahoo - Finance</a>");
+
     draw(data);
 
 

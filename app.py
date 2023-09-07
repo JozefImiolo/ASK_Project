@@ -4,7 +4,6 @@ from flask import Flask, render_template
 import init_tables
 import json
 
-
 app = Flask(__name__)
 
 
@@ -53,6 +52,7 @@ def bar_chart():
     data_json = json.loads(data_json)
 
     return render_template('bar_chart.html', data=data_json)
+
 
 @app.route("/candle_chart")
 def candle_chart():

@@ -11,10 +11,10 @@ TABLE_NAME_BTC = 'BTC_USD'
 csv_filename_ETH = 'ETH_USD.csv'
 csv_filename_BTC = 'BTC_USD.csv'
 
-TABLES = {TABLE_NAME_ETH:csv_filename_ETH, TABLE_NAME_BTC: csv_filename_BTC}
+TABLES = {TABLE_NAME_ETH: csv_filename_ETH, TABLE_NAME_BTC: csv_filename_BTC}
+
 
 def create_table_if_not_exist(table_name):
-
     create_table_query = f'''
      CREATE TABLE IF NOT EXISTS {table_name}(
       Date timestamp,
@@ -38,8 +38,8 @@ def create_table_if_not_exist(table_name):
         print(f"Table creation failed. Status code: {response.status_code}")
         print(response.text)
 
-def insert_data(table_name, csv_filename):
 
+def insert_data(table_name, csv_filename):
     with open(f'data/{csv_filename}', 'r') as csv_file:
         csv_reader = csv.DictReader(csv_file)
         data = list(csv_reader)
@@ -48,7 +48,7 @@ def insert_data(table_name, csv_filename):
         with Sender('localhost', 9009) as sender:
             for row in data:
                 datetime_obj = datetime.strptime(row['Date'], "%Y-%m-%dT%H:%M:%S.%fZ")
-                tstamp = int(datetime_obj.timestamp() ) * 1000000000
+                tstamp = int(datetime_obj.timestamp()) * 1000000000
                 sender.row(
                     table_name,
                     columns={
@@ -65,7 +65,8 @@ def insert_data(table_name, csv_filename):
     except (IngressError, IngressError) as e:
         sys.stderr.write(f'Got error: {e}\n')
 
+
 def init_tables():
     for table_name, csv_filename in TABLES.items():
         create_table_if_not_exist(table_name)
-        insert_data(table_name,csv_filename)
+        insert_data(table_name, csv_filename)
