@@ -3,16 +3,19 @@ ASK subject - study course. Topic of project: Time-series database QuestDB for s
 
 
 ## How to run
-
-### Docker - run questdb database - in terminal A
+### Docker - build / compose questdb database
     docker-compose up -d
+### how to stop the container - however keep the data
+    docker-compose stop
+### how to delete the container
+    docker-compose down
 
-### Python - install dependencies - in terminal B
+### Python - install dependencies
     python -m venv myenv
     .\myenv\Scripts\activate.bat
     pip install -r requirements.txt
 
-### FLask app - launch app - in terminal B
+### FLask app - launch app
     python -m flask run
 
 ### App website - visit website
