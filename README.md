@@ -50,18 +50,13 @@ QuestDB:
     ○ PostgreSQL Wire Protocol: port 8812
     ○ HTTP REST API: port 9000
     ○ Web Console: port 9000
-* Standard ports description:
-    ○ InfluxDB Line Protocol: port 9009
-    ○ PostgreSQL Wire Protocol: port 8812
-    ○ HTTP REST API: port 9000
-    ○ Web Console: port 9000
 * Data inserting
     ○ Designated timestamp is in nanoseconds
     ○ Available protocols:
-        § InfluxDB Line Protocol (ILP) - used-  port 9000
+        ○ InfluxDB Line Protocol (ILP) - used-  port 9000
         Python library questdb.ingress: client library implements QuestDB’s variant of the InfluxDB Line Protocol (ILP) over TCP.
-        § PostgreSQL wire 
-        § HTTP REST API
+        ○ PostgreSQL wire 
+        ○ HTTP REST API
 * Query data 
     ○ PostgreSQL wire protocol
     ○ HTTP REST API - used - port 9000
