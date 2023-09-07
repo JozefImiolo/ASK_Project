@@ -12,25 +12,11 @@ csv_filename_ETH = 'ETH_USD.csv'
 csv_filename_BTC = 'BTC_USD.csv'
 
 TABLES = {TABLE_NAME_ETH:csv_filename_ETH, TABLE_NAME_BTC: csv_filename_BTC}
-def check_if_table_exist(table_name):
 
-    query = f"SELECT * FROM {table_name};"
-    payload = {
-        'query': query
-    }
-
-    response = requests.get(f"{QUESTDB_HOST}/exec", payload)
-    if response.status_code == 200 and len(response.json()) > 0:
-        print("The table exists.")
-        return True
-    else:
-        print("The table does not exist or an error occurred.")
-        return False
-
-def create_table(table_name):
+def create_table_if_not_exist(table_name):
 
     create_table_query = f'''
-     CREATE TABLE {table_name}(
+     CREATE TABLE IF NOT EXISTS {table_name}(
       Date timestamp,
       Open DOUBLE,
       High DOUBLE,
@@ -59,7 +45,7 @@ def insert_data(table_name, csv_filename):
         data = list(csv_reader)
 
     try:
-        with Sender('localhost', 9000) as sender:
+        with Sender('localhost', 9009) as sender:
             for row in data:
                 datetime_obj = datetime.strptime(row['Date'], "%Y-%m-%dT%H:%M:%S.%fZ")
                 tstamp = int(datetime_obj.timestamp() ) * 1000000000
@@ -81,6 +67,5 @@ def insert_data(table_name, csv_filename):
 
 def init_tables():
     for table_name, csv_filename in TABLES.items():
-        if not check_if_table_exist(table_name):
-            create_table(table_name)
-            insert_data(table_name,csv_filename)
+        create_table_if_not_exist(table_name)
+        insert_data(table_name,csv_filename)
