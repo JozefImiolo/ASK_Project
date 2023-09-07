@@ -3,7 +3,7 @@ ASK subject - study course. Topic of project: Time-series database QuestDB for s
 
 
 ## How to run
-### Docker - build / compose questdb database
+### Docker - build / compose questdb database - to build the vm or to restart previously stopped vm
     docker-compose up -d
 ### how to stop the container - however keep the data
     docker-compose stop
